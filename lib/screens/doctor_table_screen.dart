@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-
+import 'package:pluto_grid/pluto_grid.dart';
 import '../models/doctor.dart';
-import '../widgets/doctor_data_source.dart';
 
 class DoctorTableScreen extends StatefulWidget {
   @override
@@ -10,313 +8,386 @@ class DoctorTableScreen extends StatefulWidget {
 }
 
 class _DoctorTableScreenState extends State<DoctorTableScreen> {
-  List<Doctor> doctors = [
+  final List<Doctor> doctors = [
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Martin',
+      location: 'Lyon',
+      specialty: 'Dermatologie',
+      phone: '04 56 78 90 12',
+      address: '456 Rue de Lyon',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. jihed',
+      location: 'Paris',
+      specialty: 'dev',
+      phone: '85889765',
+      address: '123 Rue Ramla',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. jihed',
+      location: 'Paris',
+      specialty: 'dev',
+      phone: '51885304',
+      address: '123 Rue Ramla',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Nidhal',
+      location: 'Tunis',
+      specialty: 'concepteur',
+      phone: '01 23 45 67 00',
+      address: '123 Rue de mahdia',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. ali',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '121 3 456 789',
+      address: '123 Rue hiboun',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'lyon',
+      specialty: 'ardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'brdiologie',
+      phone: '01 23 45 67 89',
+      address: '123 Rue de Paris',
+    ),
     Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. Smith',
-        location: 'New York',
-        specialty: 'Cardiology',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. ali',
-        location: 'New York',
-        specialty: 'desease',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. salah',
-        location: 'California',
-        specialty: 'Generaliste',
-        phone: '123-456-7890',
-        address: '123 Main St'),
-    Doctor(
-        name: 'Dr. Johnson',
-        location: 'Los Angeles',
-        specialty: 'Dermatology',
-        phone: '234-567-8901',
-        address: '456 Elm St'),
+      name: 'Dr. Dupont',
+      location: 'Paris',
+      specialty: 'Cardiologie',
+      phone: '5188444',
+      address: '15 Rue de Paris',
+    ),
     // Add more doctors here
   ];
+  List<PlutoRow> createDoctorRows(List<Doctor> doctors) {
+    return doctors.map((doctor) {
+      return PlutoRow(
+        key: ValueKey(doctor.id), // Use UUID as key
+        cells: doctor.toCells(),
+      );
+    }).toList();
+  }
 
-  late DoctorDataSource doctorDataSource;
-  final int rowsPerPage = 5; // Number of rows per page
+  String? expandedRowIndex; // Store index of expanded row (null means none)
 
+  late PlutoGridStateManager stateManager;
+  Doctor? expandedDoctor;
+
+  // Pagination controls
+  final int defaultPageSize = 5;
+  final List<int> pageSizeOptions = [10, 20, 50];
+  List<Doctor> filteredDoctors = [];
   @override
   void initState() {
     super.initState();
-    doctorDataSource = DoctorDataSource(doctors);
-  }
-
-  bool isMobile(BuildContext context) =>
-      MediaQuery.of(context).size.width < 600;
-
-  double getColumnWidth(BuildContext context, String columnName) {
-    if (isMobile(context)) {
-      return columnName == 'name' ? 150 : 100; // Smaller widths for mobile
-    } else {
-      return columnName == 'name' ? 200 : 150; // Larger widths for tablets
-    }
-  }
-
-  double getFontSize(BuildContext context) {
-    return isMobile(context) ? 12 : 14; // Smaller font for mobile
+    filteredDoctors = List.from(doctors); // Start with all doctors
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: SfDataGrid(
-            source: doctorDataSource,
-            columns: [
-              GridColumn(
-                columnName: 'name',
-                label: Container(
-                  padding: EdgeInsets.all(8.0),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Name',
-                    style: TextStyle(fontSize: getFontSize(context)),
-                  ),
-                ),
-                width: getColumnWidth(context, 'name'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Tableau des Médecins'),
+      ),
+      body: Column(
+        children: [
+          // Search Bar (unchanged)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: 'Rechercher',
+                suffixIcon: Icon(Icons.search),
               ),
-              GridColumn(
-                columnName: 'location',
-                label: Container(
-                  padding: EdgeInsets.all(8.0),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Location',
-                    style: TextStyle(fontSize: getFontSize(context)),
-                  ),
-                ),
-                width: getColumnWidth(context, 'location'),
-                visible: !isMobile(context), // Hide on mobile
-              ),
-              GridColumn(
-                columnName: 'specialty',
-                label: Container(
-                  padding: EdgeInsets.all(8.0),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Specialty',
-                    style: TextStyle(fontSize: getFontSize(context)),
-                  ),
-                ),
-                width: getColumnWidth(context, 'specialty'),
-              ),
-            ],
-            allowSorting: true,
-            allowFiltering: true,
+              onChanged: (value) {
+                setState(() {
+                  if (value.isEmpty) {
+                    filteredDoctors = List.from(doctors); // Reset to full list
+                  } else {
+                    List<String> searchTerms = value.toLowerCase().split(' ');
+                    filteredDoctors = doctors.where((doctor) {
+                      String rowData =
+                          "${doctor.name} ${doctor.location} ${doctor.specialty} ${doctor.phone} ${doctor.address}"
+                              .toLowerCase();
+                      return searchTerms
+                          .every((term) => rowData.contains(term));
+                    }).toList();
+                  }
+                });
+                stateManager.removeAllRows();
+                List<PlutoRow> newRows = createDoctorRows(filteredDoctors);
+
+                // Add new rows to the grid
+                stateManager.appendRows(newRows);
+                stateManager.notifyListeners();
+              },
+            ),
           ),
-        ),
-        // Pagination Controls
-        SfDataPager(
-          delegate: doctorDataSource,
-          pageCount: (doctors.length / rowsPerPage).ceil().toDouble(),
-          direction: Axis.horizontal,
-        ),
-      ],
+          // PlutoGrid Table
+          Expanded(
+            child: PlutoGrid(
+              columns: [
+                PlutoColumn(
+                  title: 'Nom',
+                  field: 'name',
+                  type: PlutoColumnType.text(),
+                ),
+                PlutoColumn(
+                  title: 'Localisation',
+                  field: 'location',
+                  type: PlutoColumnType.text(),
+                ),
+                PlutoColumn(
+                  title: 'Spécialité',
+                  field: 'specialty',
+                  type: PlutoColumnType.text(),
+                ),
+                PlutoColumn(
+                  title: 'Actions',
+                  field: 'actions',
+                  type: PlutoColumnType.text(),
+                  renderer: (rendererContext) {
+                    final hasActions =
+                        (rendererContext.cell.value as String).isNotEmpty;
+
+                    if (hasActions) {
+                      return Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.edit, color: Colors.blue),
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.visibility, color: Colors.green),
+                            onPressed: () {},
+                          ),
+                        ],
+                      );
+                    } else {
+                      return SizedBox.shrink();
+                    }
+                  },
+                ),
+              ],
+              rows: createDoctorRows(filteredDoctors),
+              onLoaded: (PlutoGridOnLoadedEvent event) {
+                stateManager = event.stateManager;
+                // Initialize pagination
+                stateManager.setPageSize(defaultPageSize);
+              },
+              onRowDoubleTap: (PlutoGridOnRowDoubleTapEvent event) {
+                final String tappedRowId = event.row.cells['doctor']!.value
+                    .id; // Assuming doctor has an 'id' field
+
+                setState(() {
+                  expandedRowIndex =
+                      (expandedRowIndex == tappedRowId) ? null : tappedRowId;
+                });
+
+                // Clear existing rows
+                stateManager.removeAllRows();
+
+                // Generate new rows with updated expanded state
+                List<PlutoRow> newRows = filteredDoctors
+                    .map((doctor) {
+                      bool isExpanded = expandedRowIndex == doctor.id;
+
+                      PlutoRow mainRow = PlutoRow(
+                        key: ValueKey(
+                            doctor.id), // Ensure PlutoRow has a unique key
+                        cells: {
+                          'name': PlutoCell(value: doctor.name),
+                          'location': PlutoCell(value: doctor.location),
+                          'specialty': PlutoCell(value: doctor.specialty),
+                          'actions': PlutoCell(value: doctor.id),
+                          'doctor': PlutoCell(value: doctor),
+                        },
+                      );
+
+                      if (isExpanded) {
+                        // Insert expanded details row right after main row
+                        return [
+                          mainRow,
+                          PlutoRow(
+                            key: ValueKey(
+                                '${doctor.id}_details'), // Unique key for details row
+                            cells: {
+                              'name': PlutoCell(
+                                  value: '📍 Adresse: ${doctor.address}'),
+                              'location':
+                                  PlutoCell(value: '📞 Tel: ${doctor.phone}'),
+                              'specialty': PlutoCell(value: ''),
+                              'actions': PlutoCell(value: ''),
+                              'doctor': PlutoCell(value: doctor),
+                            },
+                          )
+                        ];
+                      } else {
+                        return [mainRow];
+                      }
+                    })
+                    .expand((rowList) => rowList)
+                    .toList();
+
+                // Add new rows to PlutoGrid
+                stateManager.appendRows(newRows);
+                stateManager.notifyListeners();
+              },
+              configuration: PlutoGridConfiguration(
+                localeText: const PlutoGridLocaleText.french(),
+                style: PlutoGridStyleConfig(
+                  enableRowColorAnimation: true,
+                  activatedColor: Color.fromARGB(255, 171, 227, 245),
+                  gridBorderColor: Color.fromARGB(255, 223, 222, 222),
+                  rowColor: Colors.white,
+                  checkedColor: Color.fromARGB(255, 37, 232, 34),
+                ),
+              ),
+              createFooter: (stateManager) {
+                stateManager.setPageSize(5, notify: false);
+// default 40
+                return PlutoPagination(stateManager, pageSizeToMove: 1);
+              },
+            ),
+          ),
+          // Pagination Controls
+
+          // Collapsible Section (unchanged)
+          if (expandedDoctor != null)
+            Container(
+              padding: EdgeInsets.all(16),
+              color: Colors.grey[200],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Détails supplémentaires:',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text('Téléphone: ${expandedDoctor!.phone}'),
+                  Text('Adresse: ${expandedDoctor!.address}'),
+                ],
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

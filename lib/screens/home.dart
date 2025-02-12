@@ -17,27 +17,24 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title), // Use the title passed to HomePage
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Add a welcome message or other widgets here
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Welcome to the Doctors App',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+      body: Column(
+        children: [
+          // Add a welcome message or other widgets here
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Bienvenue dans l\'application des médecins',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            // Add the DoctorTableScreen here
-            SizedBox(
-              height: 500, // Set a fixed height
-              child: DoctorTableScreen(),
-            ),
-          ],
-        ),
+          ),
+          // Add the DoctorTableScreen here
+          Expanded(
+            child: DoctorTableScreen(),
+          ),
+        ],
       ),
     );
   }
