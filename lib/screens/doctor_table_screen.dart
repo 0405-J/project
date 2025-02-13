@@ -190,6 +190,7 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
   final int defaultPageSize = 5;
   final List<int> pageSizeOptions = [10, 20, 50];
   List<Doctor> filteredDoctors = [];
+
   @override
   void initState() {
     super.initState();
@@ -239,6 +240,7 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
           // PlutoGrid Table
           Expanded(
             child: PlutoGrid(
+              mode: PlutoGridMode.selectWithOneTap,
               columns: [
                 PlutoColumn(
                   title: 'Nom',
@@ -285,16 +287,30 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
               rows: createDoctorRows(filteredDoctors),
               onLoaded: (PlutoGridOnLoadedEvent event) {
                 stateManager = event.stateManager;
-                // Initialize pagination
-                stateManager.setPageSize(defaultPageSize);
-              },
-              onRowDoubleTap: (PlutoGridOnRowDoubleTapEvent event) {
-                final String tappedRowId = event.row.cells['doctor']!.value
-                    .id; // Assuming doctor has an 'id' field
 
+                // Initialize pagination
+                stateManager.setPageSize(5, notify: true);
+
+                stateManager.addListener(() {
+                  print(stateManager.page);
+                  //if (stateManager.page > 1) {
+                  //  stateManager.setPageSize(5, notify: true);
+                });
+              },
+              onSelected: (PlutoGridOnSelectedEvent event) {
+                final String tappedRowId = event.row!.cells['doctor']!.value
+                    .id; // Assuming doctor has an 'id' field
+                print("Right-clicked row: ${tappedRowId}");
                 setState(() {
-                  expandedRowIndex =
-                      (expandedRowIndex == tappedRowId) ? null : tappedRowId;
+                  if (expandedRowIndex == tappedRowId) {
+                    expandedRowIndex = null;
+                    stateManager.setPageSize(5,
+                        notify: true); // Retour à 5 éléments par page
+                  } else {
+                    expandedRowIndex = tappedRowId;
+                    stateManager.setPageSize(6,
+                        notify: true); // Augmenter à 6 éléments
+                  }
                 });
 
                 // Clear existing rows
@@ -357,8 +373,12 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
                 ),
               ),
               createFooter: (stateManager) {
+                expandedRowIndex = null;
                 stateManager.setPageSize(5, notify: false);
-// default 40
+                print('check page number${stateManager.page}');
+
+                stateManager.setPage(0, notify: true); // Start at page 0
+
                 return PlutoPagination(stateManager, pageSizeToMove: 1);
               },
             ),
