@@ -35,3 +35,10 @@ class AppSizes {
   static const double fieldSpacing = 20;
   static const double borderRadius = 10;
 }
+
+const Color activatedRowColor = Color.fromARGB(255, 171, 227, 245);
+const Color gridBorderColor = Color.fromARGB(255, 223, 222, 222);
+const Color rowColor = Colors.white;
+const Color checkedColor = Color.fromARGB(255, 37, 232, 34);
+const int defaultPageSize = 5;
+const List<int> pageSizeOptions = [10, 20, 50];
