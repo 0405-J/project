@@ -31,7 +31,7 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
       address: '123 Rue Ramla',
     ),
     Doctor(
-      name: 'Dr. jihed',
+      name: 'Dr. jihedd',
       location: 'Paris',
       specialty: 'dev',
       phone: '51885304',
@@ -45,77 +45,77 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
       address: '123 Rue de mahdia',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. ahmed',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. ska',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. mourad',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. mohamed',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. jacer',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. oussma',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. khalil',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. monji',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. sassi',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. mounir',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. bassem',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
@@ -129,42 +129,42 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
       address: '123 Rue hiboun',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. mondher',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. maher',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. fahd',
       location: 'lyon',
       specialty: 'ardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. kacem',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. bilel',
       location: 'Paris',
       specialty: 'brdiologie',
       phone: '01 23 45 67 89',
       address: '123 Rue de Paris',
     ),
     Doctor(
-      name: 'Dr. Dupont',
+      name: 'Dr. francois',
       location: 'Paris',
       specialty: 'Cardiologie',
       phone: '5188444',
@@ -182,7 +182,7 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
   }
 
   String? expandedRowIndex; // Store index of expanded row (null means none)
-
+  int previousPage = 1; // La page commence à 1
   late PlutoGridStateManager stateManager;
   Doctor? expandedDoctor;
 
@@ -289,32 +289,68 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
                 stateManager = event.stateManager;
 
                 // Initialize pagination
-                stateManager.setPageSize(5, notify: true);
+                //  stateManager.setPageSize(5, notify: true);
 
                 stateManager.addListener(() {
-                  print(stateManager.page);
-                  //if (stateManager.page > 1) {
-                  //  stateManager.setPageSize(5, notify: true);
+                  if (previousPage != stateManager.page) {
+                    Future.delayed(Duration.zero, () {
+                      setState(() {
+                        previousPage = stateManager
+                            .page; // Mettre à jour la page précédente
+                        print("Page changed: ${stateManager.pageSize}");
+
+                        stateManager.setPageSize(5, notify: true);
+                        // 🔹 Remettre expandedRowIndex à null
+                        expandedRowIndex = null;
+
+                        // 🔹 Supprimer toutes les lignes avant d'ajouter les nouvelles
+                        stateManager.removeAllRows();
+
+                        // 🔹 Générer et ajouter les nouvelles lignes
+                        List<PlutoRow> newRows =
+                            createDoctorRows(filteredDoctors);
+                        stateManager.appendRows(newRows);
+
+                        // 🔹 Notifier PlutoGrid que la mise à jour a eu lieu
+                        stateManager
+                            .notifyListeners(); // Toujours 5 lignes par page
+                      });
+                    });
+                  }
                 });
               },
               onSelected: (PlutoGridOnSelectedEvent event) {
-                final String tappedRowId = event.row!.cells['doctor']!.value
+                int selectedRowIndex = stateManager.refRows.indexOf(event.row!);
+                PlutoCell? expandedCell = event.row!.cells['expanded'];
+                print("Selected Row Index on Current Page: $selectedRowIndex");
+                final tappedRowId = event.row!.cells['doctor']!.value
                     .id; // Assuming doctor has an 'id' field
-                print("Right-clicked row: ${tappedRowId}");
+                bool isExpanded =
+                    expandedCell?.value ?? false; // If null, default to false
+
+                print("Selected Row Index on Current Page: $selectedRowIndex");
+                print("Is Expanded: $isExpanded");
                 setState(() {
                   if (expandedRowIndex == tappedRowId) {
                     expandedRowIndex = null;
                     stateManager.setPageSize(5,
                         notify: true); // Retour à 5 éléments par page
                   } else {
-                    expandedRowIndex = tappedRowId;
-                    stateManager.setPageSize(6,
-                        notify: true); // Augmenter à 6 éléments
+                    if (selectedRowIndex == 4 && !isExpanded) {
+                      print("Row index is 4 and it's NOT expanded.");
+                      expandedRowIndex = tappedRowId;
+                      stateManager.setPageSize(6, notify: true);
+                    } else {
+                      expandedRowIndex = tappedRowId;
+                      stateManager.setPageSize(5, notify: true);
+                    }
+                    // print(isExpanded!.value);
+                    //   // Augmenter à 6 éléments
                   }
                 });
 
                 // Clear existing rows
-                stateManager.removeAllRows();
+                //
 
                 // Generate new rows with updated expanded state
                 List<PlutoRow> newRows = filteredDoctors
@@ -348,6 +384,7 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
                               'specialty': PlutoCell(value: ''),
                               'actions': PlutoCell(value: ''),
                               'doctor': PlutoCell(value: doctor),
+                              'expanded': PlutoCell(value: true)
                             },
                           )
                         ];
@@ -359,6 +396,7 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
                     .toList();
 
                 // Add new rows to PlutoGrid
+                stateManager.removeAllRows();
                 stateManager.appendRows(newRows);
                 stateManager.notifyListeners();
               },
