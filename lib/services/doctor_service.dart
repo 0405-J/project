@@ -254,9 +254,9 @@ class DoctorService {
       newExpandedRowIndex = null;
       stateManager.setPageSize(defaultPageSize, notify: true);
     } else {
-      if (selectedRowIndex == 4 && !isExpanded) {
+      if (selectedRowIndex == defaultPageSize - 1 && !isExpanded) {
         newExpandedRowIndex = tappedRowId;
-        stateManager.setPageSize(6, notify: true);
+        stateManager.setPageSize(defaultPageSize + 1, notify: true);
       } else {
         newExpandedRowIndex = tappedRowId;
         stateManager.setPageSize(defaultPageSize, notify: true);
