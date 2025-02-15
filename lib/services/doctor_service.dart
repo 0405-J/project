@@ -251,15 +251,15 @@ class DoctorService {
     bool isExpanded = expandedCell?.value ?? false;
     String? newExpandedRowIndex;
     if (expandedRowIndex == tappedRowId) {
-      newExpandedRowIndex = null;
       stateManager.setPageSize(defaultPageSize, notify: true);
+      newExpandedRowIndex = null;
     } else {
       if (selectedRowIndex == defaultPageSize - 1 && !isExpanded) {
-        newExpandedRowIndex = tappedRowId;
         stateManager.setPageSize(defaultPageSize + 1, notify: true);
-      } else {
         newExpandedRowIndex = tappedRowId;
+      } else {
         stateManager.setPageSize(defaultPageSize, notify: true);
+        newExpandedRowIndex = tappedRowId;
       }
     }
     updateExpandedRowIndex(newExpandedRowIndex);
