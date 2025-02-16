@@ -39,7 +39,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     final screenWidth = ScreenUtils.getScreenWidth(context);
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor, // Use constant
+      backgroundColor: AppColors.white, // Use constant
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -49,12 +49,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
               'assets/animations/loading.json',
               width: screenWidth * 0.5, // Responsive width
             ),
-            const SizedBox(height: AppSizes.fieldSpacing), // Use constant
+            const SizedBox(height: AppSizes.fieldSpacing / 2), // Use constant
             // Logo
-            Image.asset(
-              'assets/images/logo.png',
-              width: AppSizes.logoWidth, // Use constant
-            ),
           ],
         ),
       ),
