@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const HomePage(title: 'Bio Track'),
+          builder: (context) => const HomePage(title: 'BioBox'),
         ),
       );
     }

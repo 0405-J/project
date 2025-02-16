@@ -4,12 +4,12 @@ import 'package:pluto_grid/pluto_grid.dart';
 import '../models/doctor.dart';
 import '../utils/constants.dart';
 
-class DoctorTableScreen extends StatefulWidget {
+class ProductListScreen extends StatefulWidget {
   @override
-  _DoctorTableScreenState createState() => _DoctorTableScreenState();
+  _ProductListScreenState createState() => _ProductListScreenState();
 }
 
-class _DoctorTableScreenState extends State<DoctorTableScreen> {
+class _ProductListScreenState extends State<ProductListScreen> {
   String? expandedRowIndex;
   int previousPage = 1;
   late PlutoGridStateManager stateManager;
@@ -60,7 +60,7 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Center(
             child: Text(
-              'Liste des Médecins',
+              'Liste des Produits',
               style: TextStyle(
                 color: Colors.black87, fontSize: 22, // Taille du texte
                 fontWeight: FontWeight.bold, // Gras pour le titre))),
@@ -154,7 +154,7 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
                               (rendererContext.cell.value as String).isNotEmpty;
                           if (hasActions) {
                             return Container(
-                              constraints: BoxConstraints(maxWidth: 120),
+                              constraints: BoxConstraints(maxWidth: 100),
                               child: Wrap(
                                 alignment: WrapAlignment.center,
                                 spacing: 2, // Space between buttons
