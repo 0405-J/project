@@ -160,33 +160,71 @@ class _LoginScreenState extends State<LoginScreen> {
     bool hasToggle = false,
   }) {
     return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        labelText: label,
-        prefixIcon: Icon(icon, color: AppColors.primaryColor),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppSizes.borderRadius),
+        controller: controller,
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          labelText: label,
+          prefixIcon: Icon(icon, color: AppColors.primaryColor),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppSizes.borderRadius),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppSizes.borderRadius),
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppSizes.borderRadius),
+            borderSide:
+                BorderSide(color: AppColors.primaryColorLighter, width: 2.0),
+          ),
+          suffixIcon: hasToggle
+              ? IconButton(
+                  icon: Icon(
+                    obscureText ? Icons.visibility_off : Icons.visibility,
+                    color: AppColors.primaryColor,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isObscure = !_isObscure;
+                    });
+                  },
+                )
+              : null,
         ),
-        suffixIcon: hasToggle
-            ? IconButton(
-                icon: Icon(
-                  obscureText ? Icons.visibility_off : Icons.visibility,
-                  color: AppColors.primaryColor,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _isObscure = !_isObscure;
-                  });
-                },
-              )
-            : null, // 🔹 Only show if `hasToggle` is true
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) return 'Veuillez entrer $label';
-        return null;
-      },
-    );
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Veuillez entrer $label';
+          }
+
+          if (label == "Nom d'utilisateur") {
+            if (value.length < 3) {
+              return "Le nom d'utilisateur doit comporter au moins 3 caractères.";
+            }
+            if (!RegExp(r'^[a-zA-Z][a-zA-Z0-9._]+$').hasMatch(value)) {
+              return "Nom d'utilisateur invalide (lettres, chiffres, _, .)";
+            }
+          }
+
+          if (label == "Mot de passe") {
+            if (value.length < 8) {
+              return "Le mot de passe doit comporter au moins 8 caractères.";
+            }
+            if (!RegExp(r'[A-Z]').hasMatch(value)) {
+              return "Le mot de passe doit contenir au moins une lettre majuscule.";
+            }
+            if (!RegExp(r'[a-z]').hasMatch(value)) {
+              return "Le mot de passe doit contenir au moins une lettre minuscule.";
+            }
+            if (!RegExp(r'[0-9]').hasMatch(value)) {
+              return "Le mot de passe doit contenir au moins un chiffre.";
+            }
+            if (!RegExp(r'[!@#\$%^&*(),.?":{}|<>]').hasMatch(value)) {
+              return "Le mot de passe doit contenir un caractère spécial (!@#\$%^&*).";
+            }
+          }
+
+          return null;
+        });
   }
 
   /// Login Button

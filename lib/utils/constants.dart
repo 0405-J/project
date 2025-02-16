@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const primaryColor = Color(0xffE67E22);
+  static const Color primaryColorLighter =
+      Color(0xffF4A460); // Lightened orange
+
   static const hoverColor = Color(0xffF5A25D);
   // Orange
   static const backgroundColor = Color(0xFFFFF3E0); // Light orange
