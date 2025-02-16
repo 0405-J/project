@@ -2,6 +2,7 @@ import 'package:BioTrack/services/doctor_service.dart';
 import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import '../models/doctor.dart';
+import '../utils/constants.dart';
 
 class DoctorTableScreen extends StatefulWidget {
   @override
@@ -63,7 +64,7 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
               child: TextField(
                 controller: searchController,
                 decoration: InputDecoration(
-                  hoverColor: Colors.pink,
+                  hoverColor: AppColors.primaryColor,
                   hintText: 'Rechercher...',
                   hintStyle: TextStyle(fontSize: 16, color: Colors.black54),
                   suffixIcon: GestureDetector(
@@ -71,7 +72,7 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
                     child: Container(
                       margin: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        color: Colors.pinkAccent,
+                        color: AppColors.primaryColor,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(Icons.search, color: Colors.white, size: 24),
@@ -83,9 +84,8 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
-                        color: const Color.fromARGB(255, 207, 149, 203),
-                        width: 2),
+                    borderSide:
+                        BorderSide(color: AppColors.hoverColor, width: 2),
                   ),
                 ),
               ),
@@ -201,8 +201,7 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
                     style: PlutoGridStyleConfig(
                       iconColor: Colors.grey.shade700,
                       disabledIconColor: Colors.grey.shade400,
-                      activatedBorderColor:
-                          const Color.fromARGB(255, 251, 187, 237),
+                      activatedBorderColor: AppColors.primaryColor,
                       columnTextStyle: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -219,8 +218,8 @@ class _DoctorTableScreenState extends State<DoctorTableScreen> {
                       defaultColumnTitlePadding:
                           EdgeInsets.symmetric(horizontal: 10),
                       defaultCellPadding: EdgeInsets.all(10),
-                      activatedColor: const Color.fromARGB(
-                          255, 251, 187, 237), // **Selected Row Color**
+                      activatedColor:
+                          AppColors.hoverColor, // **Selected Row Color**
                       borderColor: Colors.grey.shade300,
                       gridBorderColor: Colors.grey.shade400,
                       gridBackgroundColor: Colors.white,

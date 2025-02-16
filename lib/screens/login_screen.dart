@@ -14,8 +14,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _isObscure = true;
 
-  void _login() {
+  void _login(BuildContext context) {
     // Close the keyboard before navigation
     FocusManager.instance.primaryFocus?.unfocus();
 
@@ -31,188 +32,177 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    // Close the keyboard when the screen is first loaded
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      FocusManager.instance.primaryFocus?.unfocus();
-    });
-  }
-
-  @override
-  void dispose() {
-    // Close the keyboard when the screen is disposed
-    FocusManager.instance.primaryFocus?.unfocus();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final screenWidth = ScreenUtils.getScreenWidth(context);
-    final screenHeight = ScreenUtils.getScreenHeight(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 800; // Adjust layout for mobile screens
 
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              AppColors.backgroundColor,
-              AppColors.white
-            ], // Use constants
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+      body: Stack(children: [
+        Container(
+          color: AppColors.white,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(AppSizes.formPadding),
+              child: isMobile
+                  ? _buildMobileLayout()
+                  : _buildDesktopLayout(), // Responsive layout
+            ),
           ),
         ),
-        child: Center(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-              horizontal: screenWidth * 0.1, // 10% of screen width
+        Positioned(
+          bottom: 10,
+          right: 10,
+          child: Text(
+            "© Développé par E-Pirana",
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 12,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Logo
-                Image.asset(
-                  'assets/images/logo.png',
-                  width: AppSizes.logoWidth, // Use constant
-                ),
-                const SizedBox(height: AppSizes.fieldSpacing), // Use constant
+          ),
+        ),
+      ]),
+    );
+  }
 
-                // Welcome Text
-                const Text(
-                  "Welcome to BioTrack",
-                  style: AppTextStyles.welcomeStyle, // Use constant
-                ),
-                const SizedBox(
-                    height: AppSizes.formVerticalPadding), // Use constant
+  /// Mobile Layout: Stack Image above Form
+  Widget _buildMobileLayout() {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/images/logo.png',
+            width: 150, // Adjust size
+          ),
+          const SizedBox(height: AppSizes.fieldSpacing),
+          _buildLoginForm(),
+        ],
+      ),
+    );
+  }
 
-                // Login Form
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      // Username Field
-                      TextFormField(
-                        controller: _usernameController,
-                        decoration: InputDecoration(
-                          labelText: "Username",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                                AppSizes.borderRadius), // Rounded corners
-                            borderSide: const BorderSide(
-                                color: AppColors.white), // Custom border color
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(AppSizes.borderRadius),
-                            borderSide: const BorderSide(
-                                color: AppColors.primaryColor,
-                                width: 1.5), // Default border
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(AppSizes.borderRadius),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 2), // Focused border
-                          ),
-                          prefixIcon: const Icon(Icons.person,
-                              color: AppColors.primaryColor),
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical:
-                                screenHeight * 0.02, // 2% of screen height
-                            horizontal: 16,
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your username';
-                          }
-                          if (value.length < 4) {
-                            return 'Username must be at least 4 characters';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                          height: AppSizes.fieldSpacing), // Use constant
+  /// Desktop Layout: Image on the Left, Form on the Right
+  Widget _buildDesktopLayout() {
+    return Row(
+      children: [
+        // Left Side - Image
+        Expanded(
+          flex: 2,
+          child: Container(
+            alignment: Alignment.center,
+            child: Image.asset(
+              'assets/images/logo.png',
+              width: 250, // Adjust the logo size for desktop
+            ),
+          ),
+        ),
+        // Right Side - Login Form
+        Expanded(
+          flex: 3,
+          child: _buildLoginForm(),
+        ),
+      ],
+    );
+  }
 
-                      // Password Field
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: "Password",
-                          labelStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(AppSizes.borderRadius),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 237, 246, 229)),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(AppSizes.borderRadius),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 205, 220, 193),
-                                width: 1.5),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(AppSizes.borderRadius),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 228, 239, 218),
-                                width: 2),
-                          ),
-                          prefixIcon: const Icon(Icons.lock,
-                              color: AppColors.primaryColor),
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical:
-                                screenHeight * 0.02, // 2% of screen height
-                            horizontal: 16,
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
-                          }
-                          if (value.length < 6) {
-                            return 'Password must be at least 6 characters';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                          height: AppSizes.formVerticalPadding), // Use constant
+  /// Login Form UI
+  Widget _buildLoginForm() {
+    return Padding(
+      padding: const EdgeInsets.all(AppSizes.formPadding),
+      child: Column(
+        children: [
+          // Title centered in the page
+          Expanded(
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                "Bienvenue sur BioBox",
+                style: AppTextStyles.welcomeStyle,
+              ),
+            ),
+          ),
 
-                      // Login Button
-                      ElevatedButton(
-                        onPressed: _login,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                            vertical:
-                                AppSizes.buttonVerticalPadding, // Use constant
-                            horizontal: AppSizes
-                                .buttonHorizontalPadding, // Use constant
-                          ),
-                          backgroundColor:
-                              AppColors.primaryColor, // Use constant
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                AppSizes.borderRadius), // Use constant
-                          ),
-                        ),
-                        child: const Text(
-                          "LOGIN",
-                          style: AppTextStyles.buttonTextStyle, // Use constant
-                        ),
-                      ),
-                    ],
+          // Form centered in the page
+          Expanded(
+            flex: 5, // Adjust flex if needed
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildTextField(
+                      _usernameController, "Nom d'utilisateur", Icons.person),
+                  const SizedBox(height: AppSizes.fieldSpacing),
+                  _buildTextField(
+                    _passwordController,
+                    "Mot de passe",
+                    Icons.lock,
+                    obscureText: _isObscure,
+                    hasToggle: true,
                   ),
-                ),
-              ],
+                  const SizedBox(height: AppSizes.formPadding),
+                  _buildLoginButton(),
+                ],
+              ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  /// Custom Text Field
+  Widget _buildTextField(
+    TextEditingController controller,
+    String label,
+    IconData icon, {
+    bool obscureText = false,
+    bool hasToggle = false,
+  }) {
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(icon, color: AppColors.primaryColor),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppSizes.borderRadius),
         ),
+        suffixIcon: hasToggle
+            ? IconButton(
+                icon: Icon(
+                  obscureText ? Icons.visibility_off : Icons.visibility,
+                  color: AppColors.primaryColor,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isObscure = !_isObscure;
+                  });
+                },
+              )
+            : null, // 🔹 Only show if `hasToggle` is true
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) return 'Veuillez entrer $label';
+        return null;
+      },
+    );
+  }
+
+  /// Login Button
+  Widget _buildLoginButton() {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () => _login(context),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primaryColor,
+          padding: const EdgeInsets.all(AppSizes.buttonPadding),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSizes.borderRadius),
+          ),
+        ),
+        child: const Text("CONNEXION", style: AppTextStyles.buttonTextStyle),
       ),
     );
   }
