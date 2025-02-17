@@ -1,7 +1,7 @@
-import 'package:BioTrack/services/doctor_service.dart';
 import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import '../models/doctor.dart';
+import '../services/doctor_service.dart';
 import '../utils/constants.dart';
 
 class DoctorTableScreen extends StatefulWidget {

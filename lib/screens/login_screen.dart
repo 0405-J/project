@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../utils/constants.dart';
-import '../utils/screen_utils.dart';
 import 'home.dart'; // Import HomePage
 
 class LoginScreen extends StatefulWidget {
@@ -42,7 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
           color: AppColors.white,
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.all(AppSizes.formPadding),
+              padding: EdgeInsets.all(
+                  isMobile ? AppSizes.mobileFormPadding : AppSizes.formPadding),
               child: isMobile
                   ? _buildMobileLayout()
                   : _buildDesktopLayout(), // Responsive layout
@@ -110,40 +110,36 @@ class _LoginScreenState extends State<LoginScreen> {
     return Padding(
       padding: const EdgeInsets.all(AppSizes.formPadding),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           // Title centered in the page
-          Expanded(
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                "Bienvenue sur BioBox",
-                style: AppTextStyles.welcomeStyle,
-              ),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              "Bienvenue sur BioBox",
+              style: AppTextStyles.welcomeStyle,
             ),
           ),
-
+          const SizedBox(height: 20),
           // Form centered in the page
-          Expanded(
-            flex: 5, // Adjust flex if needed
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildTextField(
-                      _usernameController, "Nom d'utilisateur", Icons.person),
-                  const SizedBox(height: AppSizes.fieldSpacing),
-                  _buildTextField(
-                    _passwordController,
-                    "Mot de passe",
-                    Icons.lock,
-                    obscureText: _isObscure,
-                    hasToggle: true,
-                  ),
-                  const SizedBox(height: AppSizes.formPadding),
-                  _buildLoginButton(),
-                ],
-              ),
+          Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildTextField(
+                    _usernameController, "Nom d'utilisateur", Icons.person),
+                const SizedBox(height: AppSizes.fieldSpacing),
+                _buildTextField(
+                  _passwordController,
+                  "Mot de passe",
+                  Icons.lock,
+                  obscureText: _isObscure,
+                  hasToggle: true,
+                ),
+                const SizedBox(height: AppSizes.formPadding),
+                _buildLoginButton(),
+              ],
             ),
           ),
         ],

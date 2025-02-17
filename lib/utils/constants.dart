@@ -39,6 +39,7 @@ class AppSizes {
   static const double formVerticalPadding = 30;
   static const double buttonPadding = 15;
   static const double formPadding = 30;
+  static const double mobileFormPadding = 16; // Mobile Padding
   static const double fieldSpacing = 20;
   static const double borderRadius = 10;
 }
